@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Phantom</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Login con Phantom Wallet</h1>
+        
+        <div id="wallet-status" class="card">
+            <p>Wallet no conectada</p>
+        </div>
+        
+        <button id="connect-btn" class="btn">Conectar Wallet</button>
+        
+        <div id="login-section" style="display: none;">
+            <button id="login-btn" class="btn">Iniciar Sesión</button>
+        </div>
+        
+        <div id="result" class="card" style="display: none;">
+            <h2>Resultado:</h2>
+            <p id="status-text">Verificando...</p>
+            <div id="profile-info" style="display: none;">
+                <h3>Perfil:</h3>
+                <p><strong>ID:</strong> <span id="user-id"></span></p>
+                <p><strong>Nombre:</strong> <span id="user-name"></span></p>
+                <p><strong>Handle:</strong> <span id="user-handle"></span></p>
+                <p><strong>Imagen:</strong> <span id="user-image"></span></p>
+                <p><strong>Fecha de creación:</strong> <span id="user-created"></span></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Incluir bs58 para codificación -->
+    <script src="https://cdn.jsdelivr.net/npm/bs58@5.0.0/index.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
