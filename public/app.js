@@ -80,6 +80,9 @@ loginBtn.addEventListener('click', async () => {
         const encodedMessage = new TextEncoder().encode(message);
         const { signature } = await provider.signMessage(encodedMessage, 'utf8');
         
+        // ✅ USAR window.bs58 en lugar de solo bs58
+        const signatureBase58 = window.bs58.encode(signature);
+        
         // Enviar al backend para verificación
         const verifyResponse = await fetch('/api/verify', {
             method: 'POST',
@@ -88,7 +91,7 @@ loginBtn.addEventListener('click', async () => {
             },
             body: JSON.stringify({
                 publicKey,
-                signature: bs58.encode(signature),
+                signature: signatureBase58,
                 message
             })
         });
