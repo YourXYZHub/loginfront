@@ -16,6 +16,33 @@ const userId = document.getElementById('user-id');
 const userImage = document.getElementById('user-image');
 const userCreated = document.getElementById('user-created');
 
+// ✅ FUNCIÓN PARA CODIFICAR A BASE58 (sin depender de librerías externas)
+function encodeBase58(array) {
+    const alphabet = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
+    let result = '';
+    let num = BigInt(0);
+    
+    // Convertir el array de bytes a un número grande
+    for (let i = 0; i < array.length; i++) {
+        num = num * BigInt(256) + BigInt(array[i]);
+    }
+    
+    // Convertir el número grande a base58
+    while (num > 0) {
+        const remainder = Number(num % BigInt(58));
+        num = num / BigInt(58);
+        result = alphabet[remainder] + result;
+    }
+    
+    // Manejar ceros iniciales
+    for (let i = 0; i < array.length; i++) {
+        if (array[i] !== 0) break;
+        result = '1' + result;
+    }
+    
+    return result;
+}
+
 // Verificar si Phantom está instalado
 if (!provider) {
     connectBtn.disabled = true;
@@ -80,8 +107,8 @@ loginBtn.addEventListener('click', async () => {
         const encodedMessage = new TextEncoder().encode(message);
         const { signature } = await provider.signMessage(encodedMessage, 'utf8');
         
-        // ✅ USAR window.bs58 en lugar de solo bs58
-        const signatureBase58 = window.bs58.encode(signature);
+        // ✅ USAR NUESTRA PROPIA FUNCIÓN encodeBase58
+        const signatureBase58 = encodeBase58(Array.from(signature));
         
         // Enviar al backend para verificación
         const verifyResponse = await fetch('/api/verify', {
