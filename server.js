@@ -12,15 +12,25 @@ const PORT = process.env.PORT || 3000;
 // Middleware
 app.use(cors());
 app.use(express.json());
-app.use(express.static('public')); // Servir archivos estáticos
+app.use(express.static('public'));
 
 // Configuración de Supabase
-const supabase = createClient(
-  process.env.SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_ROLE
-);
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_SERVICE_ROLE;
 
-// Ruta principal - sirve el frontend
+if (!supabaseUrl || !supabaseKey) {
+  console.error('ERROR: Las variables de entorno SUPABASE_URL y SUPABASE_SERVICE_ROLE son requeridas');
+  process.exit(1);
+}
+
+const supabase = createClient(supabaseUrl, supabaseKey);
+
+// Ruta de health check para Railway
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'OK', message: 'Server is running' });
+});
+
+// Ruta principal
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
@@ -79,6 +89,6 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`Servidor ejecutándose en puerto ${PORT}`);
 });
