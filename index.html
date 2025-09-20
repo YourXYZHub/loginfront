@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phantom Login</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Login con Phantom Wallet</h1>
+        
+        <div id="wallet-status" class="status">
+            <p>Wallet no conectada</p>
+        </div>
+        
+        <button id="connect-wallet" class="btn">Conectar Phantom Wallet</button>
+        
+        <div id="login-section" class="hidden">
+            <button id="sign-message" class="btn">Firmar Mensaje</button>
+        </div>
+        
+        <div id="user-status" class="status hidden">
+            <h2>Estado de registro:</h2>
+            <p id="registration-status">No verificado</p>
+            
+            <div id="profile-info" class="hidden">
+                <h3>Perfil:</h3>
+                <p><strong>ID:</strong> <span id="profile-id"></span></p>
+                <p><strong>Nombre:</strong> <span id="profile-name"></span></p>
+                <p><strong>Handle:</strong> <span id="profile-handle"></span></p>
+                <p><strong>Imagen:</strong> <span id="profile-image"></span></p>
+                <p><strong>Fecha de creación:</strong> <span id="profile-created"></span></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
