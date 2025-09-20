@@ -8,5 +8,5 @@ restartPolicyMaxRetries = 10
 
 [[services]]
 name = "web"
-httpPort = 3000
-internalPort = 3000
+httpPort = 8080  # Cambia esto al puerto que Railway está usando
+internalPort = 8080  # Cambia esto también

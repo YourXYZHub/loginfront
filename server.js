@@ -7,6 +7,7 @@ const { createClient } = require('@supabase/supabase-js');
 const path = require('path');
 
 const app = express();
+// Usa el puerto que Railway asigna, o 3000 por defecto
 const PORT = process.env.PORT || 3000;
 
 // Middleware
@@ -89,6 +90,7 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
+// Escuchar en todos los interfaces de red (0.0.0.0) no solo localhost
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`Servidor ejecutándose en puerto ${PORT}`);
 });
